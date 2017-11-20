@@ -77,3 +77,5 @@ tests/ia64-test-dyn1
 tests/ia64-test-sig
 tests/*.log
 tests/*.trs
+
+bazel-*
