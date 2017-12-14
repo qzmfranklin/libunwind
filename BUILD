@@ -45,7 +45,10 @@ cc_library(
         'src/x86_64/is_fpreg.c',
         'src/x86_64/regname.c',
     ], exclude = [
-        #'src/mi/Ldyn-remote.c',
+        # TODO (zhongming): Understand this problem better.
+        # Somehow this could cause the symbol WSIZE to be undefined.  Need more
+        # investigation.
+        'src/mi/Ldyn-remote.c',
         'src/x86_64/Los-freebsd.c',
     ]) + [
         ':generated_headers',
@@ -84,6 +87,9 @@ cc_library(
         '-I%s' % '/'.join(
                 ([PACKAGE_NAME] if PACKAGE_NAME else []) + ['include/tdep']),
         '-I$(GENDIR)/include',
+
+        # The -Wheader-guard warning misfires for src/mi/backtrace.c.
+        '-Wno-header-guard',
     ],
 )
 
